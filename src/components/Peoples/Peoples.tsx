@@ -35,7 +35,7 @@ const Peoples:FC = () => {
     }, [ peoples ])
 
     useEffect(() => {
-        dispatch(fetchPeoples({results: resultsOnPage, page: currentPage, gender: gFilter, nat: nFilter}));
+        dispatch(fetchPeoples({results: resultsOnPage, page: 1, gender: gFilter, nat: nFilter}));
     }, [ gFilter, nFilter, resultsOnPage ]);
 
     useEffect( () => {

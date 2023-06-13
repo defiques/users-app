@@ -11,7 +11,7 @@ const Pages:FC = () => {
     const [visible, setVisible] = useState<boolean>(true);
     const [rows] = useState<number[]>([10, 50, 100])
     const curPage = useAppSelector( s => s.peopleReducer.curPage);
-    const [currentPage, setCurrentPage] = useState<number>(curPage);
+    // const [currentPage, setCurrentPage] = useState<number>(curPage);
     const gFilter = useAppSelector( s => s.peopleReducer.activeFGender);
     const nFilter = useAppSelector( s => s.peopleReducer.activeFNation);
     const resultsOnPage = useAppSelector( s => s.peopleReducer.resultsOnPage);
@@ -21,29 +21,27 @@ const Pages:FC = () => {
     const dispatch = useAppDispatch();
 
     const handlePageChangePlus = () => {
-        dispatch(fetchPeoples({results: resultsOnPage, page: currentPage + 1, gender: gFilter, nat: nFilter}));
+        dispatch(fetchPeoples({results: resultsOnPage, page: curPage + 1, gender: gFilter, nat: nFilter}));
         dispatch(handleSearch(''));
-        setCurrentPage(s => s + 1);
     };
 
     const handlePageChangeMinus = () => {
-        dispatch(fetchPeoples({results: resultsOnPage, page: currentPage - 1, gender: gFilter, nat: nFilter}));
+        dispatch(fetchPeoples({results: resultsOnPage, page: curPage - 1, gender: gFilter, nat: nFilter}));
         dispatch(handleSearch(''));
-        setCurrentPage(s => s - 1);
     };
 
     return (
         <div className="relative">
             <div className="flex justify-center items-center relative bottom-0 mt-5">
                 <PagesArrowWrapper
-                    disabled={currentPage === 1}
+                    disabled={curPage === 1}
                     onClick={handlePageChangeMinus}
                 >
                     <FaAngleLeft />
                 </PagesArrowWrapper>
-                <span>{currentPage} of {numberOfPages}</span>
+                <span>{curPage} of {numberOfPages}</span>
                 <PagesArrowWrapper
-                    disabled={currentPage === numberOfPages}
+                    disabled={curPage === numberOfPages}
                     onClick={handlePageChangePlus}
                 >
                     <FaAngleRight />
