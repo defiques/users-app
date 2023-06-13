@@ -3,18 +3,17 @@ import {SearchInput} from "../../ui/SearchInput";
 import styled from "@emotion/styled";
 import { FaSearch } from "react-icons/fa";
 import {IconContext} from "react-icons";
-import {useAppDispatch} from "../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {peopleSlice} from "../../store/reducers/PeopleSlice";
 
 const SearchBar:FC = () => {
 
-    const [value, setValue] = useState<string>('');
+    const search = useAppSelector( s => s.peopleReducer.search);
 
     const dispatch = useAppDispatch();
     const { handleSearch } = peopleSlice.actions;
 
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
         dispatch(handleSearch(e.target.value));
     }
 
@@ -22,7 +21,7 @@ const SearchBar:FC = () => {
         <SearchBarWrapper>
             <SearchInput
                 placeholder="Search"
-                value={value}
+                value={search}
                 onChange={onChangeHandler}
             />
             <IconContext.Provider value={{color: "#797675"}}>

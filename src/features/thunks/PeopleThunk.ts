@@ -8,18 +8,19 @@ const api = ky.create({
 export const fetchPeoples = createAsyncThunk(
     'people/fetchPeople',
 
-    async ({ results , page }: {results: number, page: number}, { rejectWithValue }) => {
+    async ({ results , page = 1, gender = 'all', nat = 'all' }: { results: number, page?: number, gender?: string, nat?: string }, { rejectWithValue }) => {
 
         try {
             const data = await api.get("", {
                searchParams: {
                    results,
-                   seed: 'foobar',
-                   page
+                   page,
+                   gender,
+                   nat
                }
             }).json();
             // @ts-ignore
-            return data.results
+            return {data: data.results, curPage: page}
         }
         catch (e) {
             return rejectWithValue(e)

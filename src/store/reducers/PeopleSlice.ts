@@ -14,6 +14,7 @@ interface PeopleState {
     error: string,
     loading: boolean,
     resultsOnPage: number,
+    curPage: number
 }
 
 const initialState: PeopleState = {
@@ -25,7 +26,8 @@ const initialState: PeopleState = {
     activeFNation: 'all',
     error: '',
     loading: false,
-    resultsOnPage: 10
+    resultsOnPage: 10,
+    curPage: 1
 };
 
 export const peopleSlice = createSlice({
@@ -41,6 +43,9 @@ export const peopleSlice = createSlice({
         },
         handleSearch(state, action:PayloadAction<string>) {
             state.search = action.payload;
+        },
+        handleResultsNumber(state, action:PayloadAction<number>) {
+            state.resultsOnPage = action.payload;
         }
     },
     extraReducers: {
@@ -49,9 +54,10 @@ export const peopleSlice = createSlice({
             state.loading = true;
         }
         ,
-        [fetchPeoples.fulfilled.type]: (state, action: PayloadAction<IPeople[]>) => {
-            const needData = transformData(action.payload);
+        [fetchPeoples.fulfilled.type]: (state, action: PayloadAction<{data: IPeople[], curPage: number}>) => {
+            const needData = transformData(action.payload.data);
             state.people = needData;
+            state.curPage = action.payload.curPage;
             state.filterGender = fetchFilters(needData, "gender");
             state.filterNation = fetchFilters(needData, "nationality");
             state.loading = false;

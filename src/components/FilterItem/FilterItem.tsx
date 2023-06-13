@@ -59,22 +59,32 @@ const FilterItem:FC<FilterProps> = ({ name, activeFilter, filters, type }) => {
                             </ModalFilterBlock>
                             {filters.map((f) => {
                                 if (f !== activeFilter) {
-                                    return <ModalFilterBlock key={f}
-                                                             onClick={() => {
-                                                                 dispatch(handleFilter({value: f, type: type}))
-                                                                 setVisible(false);
-                                                             }}>{f}</ModalFilterBlock>
+                                    return (
+                                        <ModalFilterBlock
+                                            key={f}
+                                            onClick={() => {
+                                                dispatch(handleFilter({value: f, type: type}))
+                                                setVisible(false);
+                                            }}>
+                                            {f}
+                                        </ModalFilterBlock>
+                                    )
                                 }
                                 return null
                             })}
                         </>
                         :
                         filters.map((f) => {
-                                return <ModalFilterBlock key={f}
-                                                         onClick={() => {
-                                                            dispatch(handleFilter({value: f, type: type}))
-                                                            setVisible(false);
-                                                         }}>{f}</ModalFilterBlock>
+                                return (
+                                    <ModalFilterBlock
+                                        key={f}
+                                        onClick={() => {
+                                                    dispatch(handleFilter({value: f, type: type}))
+                                                    setVisible(false);
+                                        }}>
+                                        {f}
+                                    </ModalFilterBlock>
+                                )
                             })
                     }
                 </ModalFilter>
@@ -136,7 +146,7 @@ const ModalFilterBlock = styled.div<ModalFilterBlockProps>`
       border-radius: 16px;
       color: #CF7B5A80;
     }
-  ${({active}) =>
+    ${({active}) =>
           active &&
           css`
             color: #CF7B5A;

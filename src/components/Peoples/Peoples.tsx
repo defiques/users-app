@@ -11,26 +11,14 @@ const Peoples:FC = () => {
     const dispatch = useAppDispatch();
 
     const [fPeople, setFPeople] = useState<IPeople[]>([]);
-
+    const currentPage = useAppSelector( s => s.peopleReducer.curPage);
+    const resultsOnPage = useAppSelector( s => s.peopleReducer.resultsOnPage);
     const peoples = useAppSelector( s => s.peopleReducer.people);
     const loading = useAppSelector( s => s.peopleReducer.loading);
     const gFilter = useAppSelector( s => s.peopleReducer.activeFGender);
     const nFilter = useAppSelector( s => s.peopleReducer.activeFNation);
     const search = useAppSelector( s => s.peopleReducer.search);
 
-    const dataGenderFilter = (arr: IPeople[], filter: string) => {
-        if (filter === 'all') {
-            return arr
-        }
-        return arr.filter((i) => i.gender === filter);
-    };
-
-    const dataNationFilter = (arr: IPeople[], filter: string) => {
-        if (filter === 'all') {
-            return arr
-        }
-        return arr.filter((i) => i.nationality === filter);
-    };
 
     const dataSearchFilter = (arr: IPeople[], search: string) => {
         if (!search) {
@@ -43,16 +31,17 @@ const Peoples:FC = () => {
     }
 
     useEffect( () => {
-        dispatch(fetchPeoples({results: 10, page: 1}));
-    }, [dispatch]);
+        setFPeople(peoples);
+    }, [ peoples ])
 
     useEffect(() => {
-        let result = peoples;
-        result = dataGenderFilter(result, gFilter);
-        result = dataNationFilter(result, nFilter);
-        result = dataSearchFilter(result, search);
+        dispatch(fetchPeoples({results: resultsOnPage, page: currentPage, gender: gFilter, nat: nFilter}));
+    }, [ gFilter, nFilter, resultsOnPage ]);
+
+    useEffect( () => {
+        let result = dataSearchFilter(peoples, search);
         setFPeople(result)
-    }, [peoples, gFilter, nFilter, search]);
+    }, [ search ]);
 
     return (
         <PeoplesWrapper>
