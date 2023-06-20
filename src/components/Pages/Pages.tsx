@@ -65,6 +65,7 @@ const Pages:FC = () => {
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             dispatch(handleResultsNumber(r));
+                                            dispatch(handleSearch(''));
                                             setVisible(false)
                                         }}
                                     >
