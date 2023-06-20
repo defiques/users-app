@@ -8,7 +8,7 @@ import {css} from "@emotion/react";
 
 const Pages:FC = () => {
 
-    const [visible, setVisible] = useState<boolean>(true);
+    const [visible, setVisible] = useState<boolean>(false);
     const [rows] = useState<number[]>([10, 50, 100])
     const curPage = useAppSelector( s => s.peopleReducer.curPage);
     // const [currentPage, setCurrentPage] = useState<number>(curPage);
