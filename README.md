@@ -5,7 +5,7 @@
 
 Пользователи отображаются в таблице. Пользователей можно фильтровать по полу и национальности, а также осуществлять поиск.
 
-Используемое API - [RandomUser](https://randomuser.me/).
+API - [RandomUser](https://randomuser.me/).
 
 Дизайн - https://www.figma.com/file/pnQHv1lWQDQamBsZITJPnt/UsersApp?node-id=0%3A1&t=LRaL438nJK2zlSe8-1
 
