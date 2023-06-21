@@ -58,8 +58,8 @@ export const peopleSlice = createSlice({
             const needData = transformData(action.payload.data);
             state.people = needData;
             state.curPage = action.payload.curPage;
-            state.filterGender = fetchFilters(needData, "gender");
-            state.filterNation = fetchFilters(needData, "nationality");
+            state.filterGender = [...new Set(state.filterGender.concat(fetchFilters(needData, "gender")))]
+            state.filterNation = [...new Set(state.filterNation.concat(fetchFilters(needData, "nationality")))];
             state.loading = false;
         },
         [fetchPeoples.rejected.type]: (state, action: PayloadAction<string>) => {
