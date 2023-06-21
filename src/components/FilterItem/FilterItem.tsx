@@ -51,6 +51,7 @@ const FilterItem:FC<FilterProps> = ({ name, activeFilter, filters, type }) => {
                         ?
                         <>
                             <ModalFilterBlock key={activeFilter}
+                                              active
                                               onClick={() => {
                                                   dispatch(handleFilter({value: activeFilter, type: type}))
                                                   setVisible(false);
